@@ -16,6 +16,6 @@ public class Movie {
     @Column(length = 5)
     private int qualification;
     @OneToMany
-    private List<Character> characters;
+    private List<Personage> characters;
 
 }
