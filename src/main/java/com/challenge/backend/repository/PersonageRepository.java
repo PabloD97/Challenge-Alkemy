@@ -10,5 +10,6 @@ import java.util.List;
 public interface PersonageRepository extends CrudRepository<Personage, Integer> {
 
     List<Personage> findAll();
+    Personage findById(int id);
 }
 
