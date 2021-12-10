@@ -2,10 +2,12 @@
 package com.challenge.backend.service;
 
 import com.challenge.backend.dto.PersonageDto;
+import com.challenge.backend.exception.PersonageException;
 import com.challenge.backend.model.Personage;
 import com.challenge.backend.repository.PersonageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,10 @@ public class PersonageService {
         return personageRepository.save(personage);
     }
 
-    public Personage updatePersonage(int idPersonage, Personage updatedPersonage){
+    public Personage updatePersonage(int idPersonage, Personage updatedPersonage) throws PersonageException {
+        if(!personageRepository.existsById(idPersonage)){
+            throw new PersonageException("Personage Not Found");
+        }
         Personage oldPersonage = personageRepository.findById(idPersonage);
         oldPersonage.setFilms(updatedPersonage.getFilms());
         oldPersonage.setAge(updatedPersonage.getAge());
@@ -38,6 +43,13 @@ public class PersonageService {
         oldPersonage.setName(updatedPersonage.getName());
         oldPersonage.setWeight(updatedPersonage.getWeight());
         return personageRepository.save(oldPersonage);
+    }
+
+    public void deletePersonageById(int idPersonage) throws PersonageException {
+        if(!personageRepository.existsById(idPersonage)){
+            throw new PersonageException("Personage Not Found");
+        }
+        personageRepository.deleteById(idPersonage);
     }
 }
 
