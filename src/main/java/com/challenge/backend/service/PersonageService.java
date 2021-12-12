@@ -74,5 +74,9 @@ public class PersonageService {
         Personage personage = personageRepository.findById(idPersonage);
         return personage.personageDetails();
     }
+
+    public List<Personage> searchByName(String name){
+        return personageRepository.findByName(name);
+    }
 }
 

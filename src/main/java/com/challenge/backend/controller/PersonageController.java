@@ -64,4 +64,12 @@ public class PersonageController {
             return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+
+    /** 6. Busqueda de Personajes **/
+    //TODO: Spring no me permite poner el mismo endpoit a pesar de que sean distintos
+    @GetMapping(value = "/personages")
+    public ResponseEntity personageSearch(@RequestParam("name") String name){
+        return new ResponseEntity(personageService.searchByName(name), HttpStatus.OK);
+    }
 }

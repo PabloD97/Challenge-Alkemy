@@ -11,5 +11,6 @@ public interface PersonageRepository extends CrudRepository<Personage, Integer> 
 
     List<Personage> findAll();
     Personage findById(int id);
+    List<Personage> findByName(String name);
 }
 
