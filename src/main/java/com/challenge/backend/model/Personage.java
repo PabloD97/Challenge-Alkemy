@@ -1,13 +1,17 @@
 package com.challenge.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "characters")
 public class Personage {
 
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String image;
@@ -15,18 +19,19 @@ public class Personage {
     private int age;
     private Double weight;
     private String history;
-    @OneToMany
-    private List<Movie> films;
+    //TODO: Esto "funciona"
+    @ManyToMany( cascade = {CascadeType.PERSIST})
+    private Set<Movie> films;
 
     public Personage(){}
 
-    public Personage(String image, String name, int age, Double weight, String history, List<Movie> films) {
+    public Personage(String image, String name, int age, Double weight, String history) {
         this.image = image;
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.history = history;
-        this.films = films;
+        this.films = new HashSet<Movie>();
     }
 
     public String getImage() {
@@ -69,11 +74,41 @@ public class Personage {
         this.history = history;
     }
 
-    public List<Movie> getFilms() {
+    public Set<Movie> getFilms() {
         return films;
     }
 
-    public void setFilms(List<Movie> films) {
+    public void setFilms(Set<Movie> films) {
         this.films = films;
+    }
+
+    public void addMovie(Movie movie){
+        this.films.add(movie);
+        movie.addPersonage(this);
+    }
+
+    public void deleteMovie(Movie movie){
+        this.films.remove(movie);
+        movie.deletePersonage(this);
+    }
+
+    public String personageDetails() {
+        return "Personage{" +
+                "image:'" + image + '\'' +
+                ", name:'" + name + '\'' +
+                ", age:" + age +
+                ", weight:" + weight +
+                ", history:'" + history + '\'' +
+                ", films:'" + filmsDetails() + '\''+
+                '}';
+    }
+
+    private List<String> filmsDetails(){
+        List<String> result = new ArrayList<>();
+        this.films.stream().forEach(movie -> {
+            result.add(movie.movieDetails());
+        });
+
+        return result;
     }
 }
