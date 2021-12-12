@@ -54,4 +54,14 @@ public class PersonageController {
             return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    /** 5. Detalle del Personaje **/
+    @GetMapping("/personageDetails/{idPersonage}")
+    public ResponseEntity personageDetails(@PathVariable("idPersonage") int idPersonage){
+        try {
+            return new ResponseEntity(personageService.personageDetails(idPersonage), HttpStatus.OK);
+        }catch (PersonageException ex){
+            return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
