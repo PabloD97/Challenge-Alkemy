@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -69,7 +70,7 @@ public class PersonageController {
     /** 6. Busqueda de Personajes **/
     //TODO: Spring no me permite poner el mismo endpoit a pesar de que sean distintos
     @GetMapping(value = "/personages")
-    public ResponseEntity personageSearch(@RequestParam("name") String name){
-        return new ResponseEntity(personageService.searchByName(name), HttpStatus.OK);
+    public ResponseEntity personageSearch(@RequestParam Optional<String> name){
+        return new ResponseEntity(personageService.searchByName(name.orElse("_")), HttpStatus.OK);
     }
 }
