@@ -67,4 +67,16 @@ public class Movie {
         });
         return result;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
 }
