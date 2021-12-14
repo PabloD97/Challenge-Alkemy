@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/auth")
 public class JwtAuthenticationController {
 
@@ -36,7 +35,6 @@ public class JwtAuthenticationController {
     private UserService userService;
 
     @PostMapping( "/login")
-    @CrossOrigin
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         return ResponseEntity.ok(new JwtResponse(token(user(authenticationRequest.getUsername()))));
@@ -60,7 +58,6 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/register")
-    @CrossOrigin
     public ResponseEntity<String> register(@RequestBody User user) {
         return new ResponseEntity<>(userService.register(user), HttpStatus.OK);
     }
