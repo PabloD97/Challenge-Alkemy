@@ -10,4 +10,5 @@ import java.util.List;
 public interface MovieRepository extends CrudRepository<Movie, Integer> {
 
     List<Movie> findAll();
+    Movie findById(int idMovie);
 }
