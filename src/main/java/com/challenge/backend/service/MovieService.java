@@ -27,4 +27,12 @@ public class MovieService {
         movies.forEach(movie -> moviesDto.add(new MovieDto(movie)));
         return moviesDto;
     }
+
+    public String movieDetails(int idMovie) throws Exception {
+        if(!movieRepository.existsById(idMovie)){
+            throw new Exception("Movie Not Found");
+        }
+        Movie movie = movieRepository.findById(idMovie);
+        return movie.movieDetails();
+    }
 }
