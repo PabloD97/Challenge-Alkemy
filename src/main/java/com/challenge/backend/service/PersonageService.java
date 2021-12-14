@@ -78,5 +78,18 @@ public class PersonageService {
     public List<Personage> searchByName(String name){
         return personageRepository.findByName(name);
     }
+
+    public List<Personage> searchBy(String name, int age, int idMovie ){
+        if(!name.equals("_")){
+            return personageRepository.findByName(name);
+        } else if(age > 0){
+            return personageRepository.findByAge(age);
+        } else if(idMovie > 0) {
+            return personageRepository.findByFilms_Id(idMovie);
+        }
+        return null;
+    }
+
+
 }
 

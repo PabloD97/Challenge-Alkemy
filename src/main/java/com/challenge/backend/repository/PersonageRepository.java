@@ -15,5 +15,8 @@ public interface PersonageRepository extends CrudRepository<Personage, Integer> 
 
     @Query("select p from Personage p where p.name like %?1%")
     List<Personage> findByName(String name);
+    List<Personage> findByAge(int age);
+    @Query("SELECT p FROM Personage p left join p.films t WHERE t.id = ?1")
+    List<Personage> findByFilms_Id(int id);
 }
 

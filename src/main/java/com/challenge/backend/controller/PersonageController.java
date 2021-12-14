@@ -70,7 +70,13 @@ public class PersonageController {
     /** 6. Busqueda de Personajes **/
     //TODO: Spring no me permite poner el mismo endpoit a pesar de que sean distintos
     @GetMapping(value = "/personages")
-    public ResponseEntity personageSearch(@RequestParam Optional<String> name){
-        return new ResponseEntity(personageService.searchByName(name.orElse("_")), HttpStatus.OK);
+    public ResponseEntity personageSearch(@RequestParam Optional<String> name,
+                                          @RequestParam Optional<Integer> age,
+                                          @RequestParam Optional<Integer> idMovie
+                                          ){
+        return new ResponseEntity(personageService.searchBy(
+                name.orElse("_"),
+                age.orElse(0),
+                idMovie.orElse(0)), HttpStatus.OK);
     }
 }
