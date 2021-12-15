@@ -44,10 +44,12 @@ public class Movie {
 
     public void addPersonage(Personage personage) {
         this.characters.add(personage);
+        personage.addMovie(this);
     }
 
     public void deletePersonage(Personage personage) {
         this.characters.remove(personage);
+        personage.deleteMovie(this);
     }
 
     public String movieDetails(){
@@ -78,5 +80,29 @@ public class Movie {
 
     public LocalDate getCreationDate() {
         return creationDate;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setCharacters(Set<Personage> characters) {
+        this.characters = characters;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setQualification(int qualification) {
+        this.qualification = qualification;
+    }
+
+    public int getQualification() {
+        return qualification;
     }
 }
