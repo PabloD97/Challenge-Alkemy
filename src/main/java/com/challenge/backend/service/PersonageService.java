@@ -2,7 +2,6 @@
 package com.challenge.backend.service;
 
 import com.challenge.backend.dto.PersonageDto;
-import com.challenge.backend.exception.PersonageException;
 import com.challenge.backend.model.Movie;
 import com.challenge.backend.model.Personage;
 import com.challenge.backend.repository.PersonageRepository;
@@ -46,9 +45,9 @@ public class PersonageService {
         return personageRepository.save(personage);
     }
 
-    public Personage updatePersonage(int idPersonage, Personage updatedPersonage) throws PersonageException {
+    public Personage updatePersonage(int idPersonage, Personage updatedPersonage) throws Exception {
         if(!personageRepository.existsById(idPersonage)){
-            throw new PersonageException("Personage Not Found");
+            throw new Exception("Personage Not Found");
         }
         Personage oldPersonage = personageRepository.findById(idPersonage);
         oldPersonage.setFilms(updatedPersonage.getFilms());
@@ -60,16 +59,16 @@ public class PersonageService {
         return personageRepository.save(oldPersonage);
     }
 
-    public void deletePersonageById(int idPersonage) throws PersonageException {
+    public void deletePersonageById(int idPersonage) throws Exception {
         if(!personageRepository.existsById(idPersonage)){
-            throw new PersonageException("Personage Not Found");
+            throw new Exception("Personage Not Found");
         }
         personageRepository.deleteById(idPersonage);
     }
 
-    public String personageDetails(int idPersonage) throws PersonageException{
+    public String personageDetails(int idPersonage) throws Exception {
         if(!personageRepository.existsById(idPersonage)){
-            throw new PersonageException("Personage Not Found");
+            throw new Exception("Personage Not Found");
         }
         Personage personage = personageRepository.findById(idPersonage);
         return personage.personageDetails();
@@ -87,9 +86,17 @@ public class PersonageService {
         } else if(idMovie > 0) {
             return personageRepository.findByFilms_Id(idMovie);
         }
+        //TODO: Cambiar el null por un array vacio
         return null;
     }
 
 
+    public Personage findById(int idPersonage) throws java.lang.Exception {
+        try {
+            return personageRepository.findById(idPersonage);
+        }catch (java.lang.Exception e){
+            throw new Exception("Personage not found");
+        }
+    }
 }
 
