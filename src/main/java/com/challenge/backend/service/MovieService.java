@@ -1,8 +1,10 @@
 package com.challenge.backend.service;
 
 import com.challenge.backend.dto.MovieDto;
+import com.challenge.backend.model.Gender;
 import com.challenge.backend.model.Movie;
 import com.challenge.backend.model.Personage;
+import com.challenge.backend.repository.GenderRepository;
 import com.challenge.backend.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,34 @@ public class MovieService {
     private MovieRepository movieRepository;
 
     @Autowired
+    private GenderRepository genderRepository;
+
+
+    @Autowired
     private PersonageService personageService;
 
     /** CRUD Movie **/
     public Movie createMovie(Movie movie){
+        addGender(movie);
         return movieRepository.save(movie);
+    }
+
+    /** metodos para agregar el genero **/
+    private Boolean existGender(String name){
+        return genderRepository.existsByName(name);
+    }
+
+    private void addGender(Movie movie){
+        if(!existGender(movie.getGender().getName())){
+            Gender gender = new Gender(movie.getGender().getName(), movie.getGender().getImage());
+            genderRepository.save(gender);
+            gender.addMovie(movie);
+            movie.setGender(gender);
+        } else {
+            Gender genderCurrent = genderRepository.findByName(movie.getGender().getName());
+            movie.setGender(genderCurrent);
+            genderCurrent.addMovie(movie);
+        }
     }
 
     public Movie updateMovie(int idMovie, Movie updatedMovie) throws Exception {
@@ -83,4 +108,24 @@ public class MovieService {
             e.printStackTrace();
         }
     }
+
+    /** 10.Búsqueda de Películas o Series **/
+
+    public List<Movie> searchBy(String name, int idGender, String order ){
+        //TODO: HACAER REFACTORA ACA
+        if(!name.equals("_")){
+            return movieRepository.findByTitle(name);
+        } else if(idGender > 0){
+            return movieRepository.findByGender_Id(idGender);
+        } else if(!order.equals("_")) {
+            if(order.equals("ASC")){
+                return movieRepository.findAllByOrderByCreationDateAsc();
+            } else if(order.equals("DESC")){
+                return movieRepository.findAllByOrderByCreationDateDesc();
+            }
+        }
+        return new ArrayList<>();
+    }
+
+
 }
