@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 public class MovieController {
 
@@ -78,6 +80,18 @@ public class MovieController {
         }catch (java.lang.Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    /** 10.Búsqueda de Películas o Series **/
+    @GetMapping(value = "/films")
+    public ResponseEntity personageSearch(@RequestParam Optional<String> title,
+                                          @RequestParam Optional<Integer> genre,
+                                          @RequestParam Optional<String> order
+    ){
+        return new ResponseEntity(movieService.searchBy(
+                title.orElse("_"),
+                genre.orElse(0),
+                order.orElse("_")), HttpStatus.OK);
     }
 
 }
