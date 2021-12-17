@@ -1,6 +1,5 @@
 package com.challenge.backend.model;
 
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,6 +20,8 @@ public class Movie {
     private LocalDate creationDate;
     @Column(length = 5)
     private int qualification;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Gender gender;
 
     @JoinTable(
             name = "rel_films_characters",
@@ -44,12 +45,10 @@ public class Movie {
 
     public void addPersonage(Personage personage) {
         this.characters.add(personage);
-        personage.addMovie(this);
     }
 
     public void deletePersonage(Personage personage) {
         this.characters.remove(personage);
-        personage.deleteMovie(this);
     }
 
     public String movieDetails(){
@@ -90,10 +89,6 @@ public class Movie {
         this.creationDate = creationDate;
     }
 
-    public void setCharacters(Set<Personage> characters) {
-        this.characters = characters;
-    }
-
     public void setImage(String image) {
         this.image = image;
     }
@@ -105,4 +100,13 @@ public class Movie {
     public int getQualification() {
         return qualification;
     }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
 }
