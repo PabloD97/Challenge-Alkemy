@@ -94,4 +94,27 @@ public class MovieController {
                 order.orElse("_")), HttpStatus.OK);
     }
 
+    /** add and delete gender **/
+    @PostMapping("/movie/{idMovie}/addGender/{idGender}")
+    public ResponseEntity addGender(@PathVariable("idMovie") int idMovie, @PathVariable("idGender") int idGender)
+    {
+        try {
+            movieService.addGender(idMovie, idGender);
+            return new ResponseEntity("Gender added successfully", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @DeleteMapping("/movie/{idMovie}/deleteGender/{idGender}")
+    public ResponseEntity deleteGender(@PathVariable("idMovie") int idMovie,
+                                          @PathVariable("idGender") int idGender){
+        try {
+            movieService.deleteGender(idMovie,idGender);
+            return new ResponseEntity("Gender successfully eliminated", HttpStatus.OK);
+        }catch (java.lang.Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
