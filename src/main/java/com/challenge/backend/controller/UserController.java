@@ -35,7 +35,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping( "/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         return ResponseEntity.ok(new JwtResponse(token(user(authenticationRequest.getUsername()))));
     }
