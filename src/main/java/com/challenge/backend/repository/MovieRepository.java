@@ -16,6 +16,8 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     @Query("select m from Movie m where m.title like %?1%")
     List<Movie> findByTitle(String title);
 
+    void deleteById(int id);
+    @Query("SELECT m FROM Movie m left join m.genders t WHERE t.id = ?1")
     List<Movie> findByGender_Id(int id);
     List<Movie> findAllByOrderByCreationDateAsc();
     List<Movie> findAllByOrderByCreationDateDesc();

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GenderRepository extends CrudRepository<Gender, Integer> {
 
-    Gender findByName(String name);
     Boolean existsByName(String name);
+    Gender findById(int idGender);
 }
 

@@ -13,6 +13,8 @@ public interface PersonageRepository extends CrudRepository<Personage, Integer> 
     List<Personage> findAll();
     Personage findById(int id);
 
+    void deleteById(int id);
+
     @Query("select p from Personage p where p.name like %?1%")
     List<Personage> findByName(String name);
     List<Personage> findByAge(int age);
