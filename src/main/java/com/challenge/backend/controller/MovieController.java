@@ -38,7 +38,7 @@ public class MovieController {
     }
 
     @PutMapping("/movie/update/{idMovie}")
-    public ResponseEntity updatePersonage(
+    public ResponseEntity updateMovie(
             @PathVariable("idMovie") int idMovie,
             @RequestBody Movie movie ){
         try {
@@ -49,7 +49,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/movie/delete/{idMovie}")
-    public ResponseEntity deletePersonage(@PathVariable("idMovie") int idMovie){
+    public ResponseEntity deleteMovie(@PathVariable("idMovie") int idMovie){
         try {
             movieService.deleteMovieById(idMovie);
             return new ResponseEntity("Successfully deleted movie", HttpStatus.OK);
@@ -84,9 +84,9 @@ public class MovieController {
 
     /** 10.Búsqueda de Películas o Series **/
     @GetMapping(value = "/films")
-    public ResponseEntity personageSearch(@RequestParam Optional<String> title,
-                                          @RequestParam Optional<Integer> genre,
-                                          @RequestParam Optional<String> order
+    public ResponseEntity movieSearch(@RequestParam (value = "title", required = false )Optional<String> title,
+                                          @RequestParam (value = "genre", required = false )Optional<Integer> genre,
+                                          @RequestParam (value = "order", required = false )Optional<String> order
     ){
         return new ResponseEntity(movieService.searchBy(
                 title.orElse("_"),

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class JwtAuthenticationController {
+public class UserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
