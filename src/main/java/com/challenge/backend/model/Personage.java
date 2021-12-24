@@ -2,7 +2,6 @@ package com.challenge.backend.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +18,6 @@ public class Personage {
     private int age;
     private Double weight;
     private String history;
-    //TODO: Esto "funciona"
     @ManyToMany( cascade = {CascadeType.PERSIST})
     private Set<Movie> films;
 
@@ -31,7 +29,6 @@ public class Personage {
         this.age = age;
         this.weight = weight;
         this.history = history;
-        this.films = new HashSet<Movie>();
     }
 
     public String getImage() {
@@ -84,12 +81,16 @@ public class Personage {
 
     public void addMovie(Movie movie){
         this.films.add(movie);
-        movie.addPersonage(this);
     }
 
     public void deleteMovie(Movie movie){
-        this.films.remove(movie);
-        movie.deletePersonage(this);
+        films.remove(movie);
+    }
+
+    public void deleteMovies(){
+        for (Movie movie: films){
+            movie.deletePersonage(this);
+        }
     }
 
     public String personageDetails() {

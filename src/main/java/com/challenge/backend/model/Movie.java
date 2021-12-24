@@ -20,35 +20,30 @@ public class Movie {
     private LocalDate creationDate;
     @Column(length = 5)
     private int qualification;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Gender gender;
 
-    @JoinTable(
-            name = "rel_films_characters",
-            joinColumns = @JoinColumn(name = "FK_FILM", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="FK_PERSONAGE", nullable = false)
-    )
-    //TODO: Esto "funciona"
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private Set<Gender> genders;
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private Set<Personage> characters;
 
     public Movie() {
     }
 
-    public Movie(String image, String title, LocalDate creationDate, int qualification, Set<Personage> characters) {
+    public Movie(String image, String title, LocalDate creationDate, int qualification) {
         this.image = image;
         this.title = title;
         this.creationDate = creationDate;
         this.qualification = qualification;
-        this.characters = characters;
     }
 
     public void addPersonage(Personage personage) {
         this.characters.add(personage);
+        personage.addMovie(this);
     }
 
     public void deletePersonage(Personage personage) {
         this.characters.remove(personage);
+        personage.deleteMovie(this);
     }
 
     public String movieDetails(){
@@ -58,6 +53,7 @@ public class Movie {
                 "creation date:'" + creationDate + '\'' +
                 "qualification:'" + qualification + '\'' +
                 "characters:'" + charactersDetails() + '\'' +
+                "genders:'" + gendersDetails() + '\'' +
                 "}";
     }
 
@@ -65,6 +61,14 @@ public class Movie {
         List<String> result = new ArrayList<>();
         this.characters.stream().forEach((personage) -> {
             result.add(personage.getName());
+        });
+        return result;
+    }
+
+    private List<String> gendersDetails(){
+        List<String> result = new ArrayList<>();
+        this.genders.stream().forEach((gender) -> {
+            result.add(gender.getName());
         });
         return result;
     }
@@ -101,12 +105,28 @@ public class Movie {
         return qualification;
     }
 
-    public Gender getGender() {
-        return gender;
+    public void addGender(Gender newGender) {
+        this.genders.add(newGender);
+        newGender.addMovie(this);
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void deletePersonages(){
+        for(Personage character: characters){
+            character.deleteMovie(this);
+            characters.remove(character);
+        }
+    }
+
+    public void deleteGender(Gender gender){
+        this.genders.remove(gender);
+        gender.deleteMovie(this);
+    }
+
+    public void deleteGenders(){
+        for(Gender gender: genders){
+            gender.deleteMovie(this);
+            genders.remove(gender);
+        }
     }
 
 }

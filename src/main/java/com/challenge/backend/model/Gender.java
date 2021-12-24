@@ -2,7 +2,9 @@ package com.challenge.backend.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "genders")
@@ -15,8 +17,8 @@ public class Gender {
     @Column(unique = true)
     private String name;
     private String image;
-    @OneToMany()
-    private List<Movie> movies = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private Set<Movie> movies = new HashSet<>();
 
     public Gender(String name, String image){
         this.name = name;
@@ -30,6 +32,8 @@ public class Gender {
     public void addMovie(Movie movie){
         this.movies.add(movie);
     }
+
+    public void deleteMovie(Movie movie){ this.movies.remove(movie);}
 
     public String getName() {
         return name;
