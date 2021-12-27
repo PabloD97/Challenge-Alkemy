@@ -8,17 +8,17 @@ exponer la información para que cualquier frontend pueda consumirla.
 
 ## Tecnologías
 
-La API se desarrollo utilizando ```bash Spring Boot``` siguiendo el patrong REST
+La API se desarrollo utilizando ``` Spring Boot``` siguiendo el patrong REST
 
 ## Autenticación
 
-Para la autenticacion del usuario, se utilizo ```bash JWT ``` para generar los tokens. Estos son necesario para utilizar los endpoints de la API.
+Para la autenticacion del usuario, se utilizo ``` JWT ``` para generar los tokens. Estos son necesario para utilizar los endpoints de la API.
 
 
 ## Base de datos
 
-Para la creacion y almacenamiento del modelo, se decidio utilizar la base de datos ```bash H2 ``` por su facil uso e implementacion.
-Para interactuar con la base de datos una vez levantada la API, ingresar a ```bash local:8080/h2 ```.
+Para la creacion y almacenamiento del modelo, se decidio utilizar la base de datos ``` H2 ``` por su facil uso e implementacion.
+Para interactuar con la base de datos una vez levantada la API, ingresar a ``` local:8080/h2 ```.
 
 ## Documentacion de la API
 
