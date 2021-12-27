@@ -28,10 +28,17 @@ public class MovieService {
     private PersonageService personageService;
 
     /** CRUD Movie **/
-    public Movie createMovie(Movie movie){
+    public Movie createMovie(Movie movie) throws Exception{
+        if(!validQualification(movie)){
+            throw new Exception("Invalid qualification");
+        }
         return movieRepository.save(movie);
     }
 
+    public Boolean validQualification(Movie movie){
+        int qualification = movie.getQualification();
+        return qualification > 0 && qualification <= 5;
+    }
 
     public Movie updateMovie(int idMovie, Movie updatedMovie) throws Exception {
         if(!movieRepository.existsById(idMovie)){

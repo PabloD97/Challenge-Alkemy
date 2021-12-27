@@ -34,7 +34,11 @@ public class MovieController {
 
     @PostMapping("/movie/create")
     public ResponseEntity createMovie(@RequestBody Movie movie){
-        return new ResponseEntity(movieService.createMovie(movie), HttpStatus.OK);
+        try {
+            return new ResponseEntity(movieService.createMovie(movie), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/movie/update/{idMovie}")
