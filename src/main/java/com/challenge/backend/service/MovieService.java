@@ -9,8 +9,10 @@ import com.challenge.backend.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MovieService {
@@ -27,45 +29,62 @@ public class MovieService {
 
     /** CRUD Movie **/
     public Movie createMovie(Movie movie){
-        addGender(movie);
         return movieRepository.save(movie);
     }
 
-    /** metodos para agregar el genero **/
-    private Boolean existGender(String name){
-        return genderRepository.existsByName(name);
-    }
-
-    private void addGender(Movie movie){
-        if(!existGender(movie.getGender().getName())){
-            Gender gender = new Gender(movie.getGender().getName(), movie.getGender().getImage());
-            genderRepository.save(gender);
-            gender.addMovie(movie);
-            movie.setGender(gender);
-        } else {
-            Gender genderCurrent = genderRepository.findByName(movie.getGender().getName());
-            movie.setGender(genderCurrent);
-            genderCurrent.addMovie(movie);
-        }
-    }
 
     public Movie updateMovie(int idMovie, Movie updatedMovie) throws Exception {
         if(!movieRepository.existsById(idMovie)){
-            throw new Exception("Personage Not Found");
+            throw new Exception("Movie Not Found");
         }
-        //TODO: Modificar la forma en la que se actualizan los datos
         Movie oldMovie = movieRepository.findById(idMovie);
-        oldMovie.setImage(updatedMovie.getImage());
-        oldMovie.setTitle(updatedMovie.getTitle());
-        oldMovie.setQualification(updatedMovie.getQualification());
-        oldMovie.setCreationDate(updatedMovie.getCreationDate());
+        oldMovie.setImage(replaceAtribute(updatedMovie.getImage(), oldMovie.getImage()));
+        oldMovie.setTitle(replaceAtribute(updatedMovie.getTitle(),oldMovie.getTitle()));
+        oldMovie.setQualification(replaceQualification(updatedMovie.getQualification(),oldMovie.getQualification()));
+        oldMovie.setCreationDate(replaceDate(updatedMovie.getCreationDate(),oldMovie.getCreationDate()));
         return movieRepository.save(oldMovie);
+    }
+
+
+    private LocalDate replaceDate(LocalDate newDate, LocalDate oldDate){
+        if(newDate.equals(oldDate) && newDate != null){
+            return oldDate;
+        }
+        return newDate;
+    }
+
+    private Boolean isEqualsQualification(int qualificationUpdate, int qualificationCurrent){
+
+        return (qualificationCurrent == qualificationUpdate) && qualificationUpdate > 0;
+    }
+
+    private int replaceQualification(int qualificationUpdate, int qualificationCurrent){
+        if(isEqualsQualification(qualificationUpdate,qualificationCurrent)){
+            return qualificationUpdate;
+        }
+        return qualificationCurrent;
+    }
+
+    private Boolean isEqualsString(String fieldUpdate, String fieldCurrent){
+        return Objects.equals(fieldUpdate, fieldCurrent);
+    }
+
+    private String replaceAtribute(String fieldUpdate, String fieldCurrent){
+        if(isEqualsString(fieldUpdate, fieldCurrent)){
+            return fieldUpdate;
+        }else {
+            return fieldCurrent;
+        }
+
     }
 
     public void deleteMovieById(int idMovie) throws Exception {
         if(!movieRepository.existsById(idMovie)){
             throw new Exception("Movie Not Found");
         }
+        Movie movie = movieRepository.findById(idMovie);
+        movie.deletePersonages();
+        movie.deleteGenders();
         movieRepository.deleteById(idMovie);
     }
 
@@ -93,8 +112,8 @@ public class MovieService {
             Personage personage = personageService.findById(idPersonage);
             movie.addPersonage(personage);
             movieRepository.save(movie);
-        }catch (java.lang.Exception e) {
-            e.printStackTrace();
+        }catch (Exception e) {
+            throw new Exception("Movie or personage not found");
         }
     }
 
@@ -105,14 +124,13 @@ public class MovieService {
             movie.deletePersonage(personage);
             movieRepository.save(movie);
         }catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception("Movie or personage not found");
         }
     }
 
     /** 10.Búsqueda de Películas o Series **/
 
     public List<Movie> searchBy(String name, int idGender, String order ){
-        //TODO: HACAER REFACTORA ACA
         if(!name.equals("_")){
             return movieRepository.findByTitle(name);
         } else if(idGender > 0){
@@ -127,5 +145,28 @@ public class MovieService {
         return new ArrayList<>();
     }
 
+    /** Metodos para agregar y borrar generos de la Movie**/
+    public void addGender(int idMovie, int idGender) throws Exception{
+        try {
+            Movie movie = movieRepository.findById(idMovie);
+            Gender gender = genderRepository.findById(idGender);
 
+            movie.addGender(gender);
+            movieRepository.save(movie);
+        } catch (Exception e){
+            throw new Exception("Movie or gender not found");
+        }
+    }
+
+    public void deleteGender(int idMovie, int idGender) throws Exception{
+        try {
+            Movie movie = movieRepository.findById(idMovie);
+            Gender gender = genderRepository.findById(idGender);
+
+            movie.deleteGender(gender);
+            movieRepository.save(movie);
+        } catch (Exception e){
+            throw new Exception("Movie or gender not found");
+        }
+    }
 }
