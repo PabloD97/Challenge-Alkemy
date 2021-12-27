@@ -70,7 +70,7 @@ public class UserService {
     }
 
     private Response sendEmailWelcome(String email){
-        Mail mail = new Mail(new Email("pablo97758@gmail.com"), "Welcome", new Email(email),new Content("text/plain", "Welcome to the api of Alkemy challenge "));
+        Mail mail = new Mail(new Email("pablodamiandiazz@gmail.com"), "Welcome", new Email(email),new Content("text/plain", "Welcome to the api of Alkemy challenge "));
         mail.setReplyTo(new Email(email));
         Request request = new Request();
 
