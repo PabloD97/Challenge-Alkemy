@@ -8,7 +8,7 @@ exponer la información para que cualquier frontend pueda consumirla.
 
 ## Autenticación
 
-Para la autenticacion, se utilizo JWT para generar los tokens. Estos seran necesario para utilizar los endpoints de la API.
+Para la autenticacion, se utilizo JWT para generar los tokens. Estos son necesario para utilizar los endpoints de la API.
 
 
 ## Base de datos
