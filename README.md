@@ -1,6 +1,6 @@
 # CHALLENGE BACKEND - Java Spring Boot(API)
 
-***Para que el codigo compile, se debe descomentar el codigo en el archivo application.properties en la carpeta resources***
+*nota:* _Para que el codigo compile, se debe descomentar el codigo en el archivo application.properties en la carpeta resources_
 
 ## Objetivo
 
