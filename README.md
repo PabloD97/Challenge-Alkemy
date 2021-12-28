@@ -1,5 +1,7 @@
 # CHALLENGE BACKEND - Java Spring Boot(API)
 
+***Para que el codigo compile, se debe descomentar el codigo en el archivo application.properties en la carpeta resources***
+
 ## Objetivo
 
 Desarrollar una API para explorar el mundo de Disney, la cual permitirá conocer y modificar los
