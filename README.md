@@ -20,6 +20,34 @@ Para la autenticacion del usuario, se utilizo ``` JWT ``` para generar los token
 Para la creacion y persistencian del modelo, se decidio utilizar la base de datos ``` H2 ``` por su facil uso e implementacion.
 Para interactuar con la base de datos una vez levantada la API, ingresar a ``` localhost:8080/h2 ```.
 
+## Generos
+
+Los datos del modelo ```Gender``` se cargan cuando se levanta la API.
+
+~~~
+**ID**  |	 **NAME**   
+1	  |  Comedy
+2	  |  Crime	
+3	  |  Thriller	
+4	  |  Adventure
+5	  |  Sport	
+6	  |  Family	
+7	  |  Fantasy
+8	  |  Action	
+9	  |  Detective
+10	|  Horror	
+11	|  Romance	
+12	|  Biography	
+13	|  History	
+14	|  Mystery	
+15	|  Musical	
+16	|  Sci-fi	
+17	|  War	
+18	|  Animation	
+19	|  Western	
+20	|  Drama	
+~~~
+
 ## Documentacion de la API
 
 Para documentar la api, se utilizo Postman:
