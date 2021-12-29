@@ -27,4 +27,6 @@ Para documentar la api, se utilizo Postman:
 [Documentacion en Postman](https://www.postman.com/pablo97758/workspace/challenge-alkemy/collection/11694978-f5d65b3a-1640-4fa0-ad4d-4ca53c932ea3?ctx=documentation)
 Esta es una coleccion que contiene todos los request a los endpoints disponibles. Para probarlos, se debera realizar un Fork y utilizar la aplicacion de escritorio de Postman.   
 
+***
+
 **nota:** _Para que funcione el servicio de envio de email de bienvenida que se pide en el item 11, se debe descomentar el codigo del archivo application.properties en la carpeta /resources_
