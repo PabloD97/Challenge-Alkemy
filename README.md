@@ -24,29 +24,30 @@ Para interactuar con la base de datos una vez levantada la API, ingresar a ``` l
 
 Los datos del modelo ```Gender``` se cargan cuando se levanta la API.
 
-~~~
-**ID**  |	 **NAME**   
-1	  |  Comedy
-2	  |  Crime	
-3	  |  Thriller	
-4	  |  Adventure
-5	  |  Sport	
-6	  |  Family	
-7	  |  Fantasy
-8	  |  Action	
-9	  |  Detective
-10	|  Horror	
-11	|  Romance	
-12	|  Biography	
-13	|  History	
-14	|  Mystery	
-15	|  Musical	
-16	|  Sci-fi	
-17	|  War	
-18	|  Animation	
-19	|  Western	
-20	|  Drama	
-~~~
+| ID  |	NAME |
+|-----|------|
+|1	  | Comedy |
+|2	  | Crime	|
+|3	  | Thriller	|
+|4	  | Adventure|
+|5	  | Sport	|
+|6	  | Family	|
+|7	  | Fantasy|
+|8	  | Action	|
+|9	  | Detective|
+|10	| Horror	|
+|11	| Romance	|
+|12	| Biography|	
+|13	| History	|
+|14	| Mystery	|
+|15	| Musical|	
+|16	| Sci-fi|	
+|17	| War	|
+|18	| Animation|	
+|19	| Western|	
+|20	| Drama	|
+
+De esta manera, se evita que se carguen generos erroneos o repetidos.
 
 ## Documentacion de la API
 
