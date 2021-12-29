@@ -35,6 +35,13 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
+    public Movie getById(int id) throws Exception{
+        if(!movieRepository.existsById(id)){
+            throw new Exception("Personage Not Found");
+        }
+        return movieRepository.findById(id);
+    }
+
     public Boolean validQualification(Movie movie){
         int qualification = movie.getQualification();
         return qualification > 0 && qualification <= 5;

@@ -28,6 +28,13 @@ public class PersonageService {
         return personageRepository.save(personage);
     }
 
+    public Personage getById(int id) throws Exception{
+        if(!personageRepository.existsById(id)){
+            throw new Exception("Personage Not Found");
+        }
+        return personageRepository.findById(id);
+    }
+
     public Personage updatePersonage(int idPersonage, Personage updatedPersonage) throws Exception {
         if(!personageRepository.existsById(idPersonage)){
             throw new Exception("Personage Not Found");

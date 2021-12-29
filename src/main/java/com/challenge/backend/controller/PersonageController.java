@@ -21,12 +21,23 @@ public class PersonageController {
         return new ResponseEntity(personageService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    /** Crud Personage **/
+
+    @PostMapping("/character/create")
     public ResponseEntity createPersonage(@RequestBody Personage personage){
         return new ResponseEntity(personageService.createPersonage(personage), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{idPersonage}")
+    @GetMapping("/character/read/{idPersonage}")
+    public ResponseEntity getPersonage(@PathVariable("idPersonage") int idPersonage){
+        try {
+            return new ResponseEntity(personageService.getById(idPersonage), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/character/update/{idPersonage}")
     public ResponseEntity updatePersonage(
             @PathVariable("idPersonage") int idPersonage,
             @RequestBody Personage personage ){
@@ -37,7 +48,7 @@ public class PersonageController {
         }
     }
 
-    @DeleteMapping("/delete/{idPersonage}")
+    @DeleteMapping("/character/delete/{idPersonage}")
     public ResponseEntity deletePersonage(@PathVariable("idPersonage") int idPersonage){
         try {
             personageService.deletePersonageById(idPersonage);

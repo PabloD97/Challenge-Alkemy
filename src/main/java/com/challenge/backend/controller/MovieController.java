@@ -41,6 +41,15 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/movie/read/{idMovie}")
+    public ResponseEntity getMovie(@PathVariable("idMovie") int idMovie){
+        try {
+            return new ResponseEntity(movieService.getById(idMovie), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/movie/update/{idMovie}")
     public ResponseEntity updateMovie(
             @PathVariable("idMovie") int idMovie,
