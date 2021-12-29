@@ -52,8 +52,8 @@ public class MovieService {
             throw new Exception("Movie Not Found");
         }
         Movie oldMovie = movieRepository.findById(idMovie);
-        oldMovie.setImage(replaceAtribute(updatedMovie.getImage(), oldMovie.getImage()));
-        oldMovie.setTitle(replaceAtribute(updatedMovie.getTitle(),oldMovie.getTitle()));
+        oldMovie.setImage(replaceAttribute(updatedMovie.getImage(), oldMovie.getImage()));
+        oldMovie.setTitle(replaceAttribute(updatedMovie.getTitle(),oldMovie.getTitle()));
         oldMovie.setQualification(replaceQualification(updatedMovie.getQualification(),oldMovie.getQualification()));
         oldMovie.setCreationDate(replaceDate(updatedMovie.getCreationDate(),oldMovie.getCreationDate()));
         return movieRepository.save(oldMovie);
@@ -83,7 +83,7 @@ public class MovieService {
         return Objects.equals(fieldUpdate, fieldCurrent);
     }
 
-    private String replaceAtribute(String fieldUpdate, String fieldCurrent){
+    private String replaceAttribute(String fieldUpdate, String fieldCurrent){
         if(isEqualsString(fieldUpdate, fieldCurrent)){
             return fieldUpdate;
         }else {

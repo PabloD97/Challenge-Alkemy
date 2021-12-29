@@ -70,7 +70,7 @@ public class PersonageController {
 
 
     /** 6. Busqueda de Personajes **/
-    /** Commentary: Spring no me permite poner el mismo endpoit a pesar de que sean distintos **/
+    /** Commentary: Spring no me permite poner el nombre de endpoit solicitado en el item 6 a pesar de que sean distintos **/
     @GetMapping(value = "/personages")
     public ResponseEntity personageSearch(@RequestParam (value = "name", required = false ) Optional<String> name,
                                           @RequestParam (value = "age", required = false ) Optional<Integer> age,

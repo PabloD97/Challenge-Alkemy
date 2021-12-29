@@ -18,7 +18,6 @@ public class Movie {
     private String image;
     private String title;
     private LocalDate creationDate;
-    @Column(length = 5)
     private int qualification;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
