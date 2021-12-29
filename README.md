@@ -1,6 +1,6 @@
 # CHALLENGE BACKEND - Java Spring Boot(API)
 
-## Indice
+## Índice
 - [Objetivo](#id-section1)
 - [Tecnología](#id-section2)
 - [Autenticacion](#id-section3)
